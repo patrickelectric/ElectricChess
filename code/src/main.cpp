@@ -10,17 +10,25 @@
 #include <cstdio>
 
 #include "screenshot.h"
+#include "mouseOpencv.h"
 
 using namespace std;
 using namespace cv;
 
-Mat XImage2MatImageAdapter(XImage *ximage);
-
 int main()
 {
-  Mat matImage = ScreenShot();
-  imshow("image_show",matImage);
-  waitKey(3000000);
-   
+	Mat matImage;
+	ScreenImage Screen;
+	Screen.ScreenInit();
+	char esc;
+  	while(esc!='s')
+  	{		
+  		matImage = Screen.ScreenShot();
+    	resize(matImage, matImage, Size(matImage.cols/2,matImage.rows/2));
+	    imshow("image_show",matImage);
+	    namedWindow("image_show",CV_WINDOW_AUTOSIZE); 
+	    esc=waitKey(1);
+	    //setMouseCallback("image_show", MouseCallBackFunc, NULL);
+	}
   return 0;
 }
