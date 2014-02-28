@@ -18,10 +18,12 @@ using namespace cv;
 int main()
 {
 	Mat matImage;
+	ScreenImage Screen;
+	Screen.ScreenInit();
 	char esc;
   	while(esc!='s')
   	{		
-  		matImage =ScreenShot();
+  		matImage = Screen.ScreenShot();
     	resize(matImage, matImage, Size(matImage.cols/2,matImage.rows/2));
 	    imshow("image_show",matImage);
 	    namedWindow("image_show",CV_WINDOW_AUTOSIZE); 

@@ -9,26 +9,32 @@
 using namespace std;
 using namespace cv;
 
-Display *display = XOpenDisplay(NULL);
-Window root = DefaultRootWindow(display);
-
-Mat ScreenShot();
-Mat XImage2MatImageAdapter(XImage *ximage);
-
-Mat ScreenShot()
+class ScreenImage 
 {
-  XWindowAttributes gwa;
+  private:
+    Display *display;
+    Window window;
 
-  XGetWindowAttributes(display, root, &gwa);
-  int width = gwa.width;
-  int height = gwa.height;
-  XDestroyWindow(display,root);
+    Mat XImage2MatImageAdapter(XImage *ximage);
+  public:
+    Mat ScreenShot();
+    void ScreenInit();
+};
 
-
-  return XImage2MatImageAdapter(XGetImage(display,root, 0,0 , width,height,AllPlanes, ZPixmap));  
+void ScreenImage::ScreenInit()
+{
+  display = XOpenDisplay(NULL);
+  window = DefaultRootWindow(display);
 }
 
-Mat XImage2MatImageAdapter(XImage *ximage)
+Mat ScreenImage::ScreenShot()
+{
+  XWindowAttributes gwa;
+  XGetWindowAttributes(display, window, &gwa);
+  return XImage2MatImageAdapter(XGetImage(display,window, 0,0 , gwa.width,gwa.height,AllPlanes, ZPixmap));  
+}
+
+Mat ScreenImage::XImage2MatImageAdapter(XImage *ximage)
 {
   IplImage *iplImage;
   assert(ximage->format == ZPixmap);
