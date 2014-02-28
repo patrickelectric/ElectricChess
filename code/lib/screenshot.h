@@ -1,6 +1,8 @@
 /*X11 library*/
-#include <X11/Xlib.h>
 #include <X11/X.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/StringDefs.h>
 
 /*OpenCV library*/
 #include <opencv/cv.h>
@@ -14,11 +16,14 @@ class ScreenImage
   private:
     Display *display;
     Window window;
+    XImage *ximage;
+    IplImage *iplImage;
 
-    Mat XImage2MatImageAdapter(XImage *ximage);
+    Mat XImage2MatImageAdapter();
   public:
     Mat ScreenShot();
     void ScreenInit();
+    void Flush();
 };
 
 void ScreenImage::ScreenInit()
@@ -29,14 +34,15 @@ void ScreenImage::ScreenInit()
 
 Mat ScreenImage::ScreenShot()
 {
+
   XWindowAttributes gwa;
   XGetWindowAttributes(display, window, &gwa);
-  return XImage2MatImageAdapter(XGetImage(display,window, 0,0 , gwa.width,gwa.height,AllPlanes, ZPixmap));  
+  ximage = XGetImage(display,window, 0,0 , gwa.width,gwa.height,AllPlanes, ZPixmap);  
+  return XImage2MatImageAdapter();
 }
 
-Mat ScreenImage::XImage2MatImageAdapter(XImage *ximage)
+Mat ScreenImage::XImage2MatImageAdapter()
 {
-  IplImage *iplImage;
   assert(ximage->format == ZPixmap);
   assert(ximage->depth == 24); 
 
@@ -48,7 +54,11 @@ Mat ScreenImage::XImage2MatImageAdapter(XImage *ximage)
   iplImage->widthStep = ximage->bytes_per_line;
   if(ximage->data != NULL)
     iplImage->imageData = ximage->data;
-	
   Mat imgmat(iplImage,false);
   return imgmat;
 };
+
+void ScreenImage::Flush()
+{
+  XDestroyImage(ximage);
+}

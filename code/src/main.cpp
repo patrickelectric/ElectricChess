@@ -23,11 +23,17 @@ int main()
 	char esc;
   	while(esc!='s')
   	{		
+
   		matImage = Screen.ScreenShot();
-    	resize(matImage, matImage, Size(matImage.cols/2,matImage.rows/2));
+  		float resizeScale=1.5f;
+    	resize(matImage, matImage, Size(matImage.cols/resizeScale,matImage.rows/resizeScale));
+    	
 	    imshow("image_show",matImage);
 	    namedWindow("image_show",CV_WINDOW_AUTOSIZE); 
 	    esc=waitKey(1);
+	    Screen.Flush();
+	    
+
 	    //setMouseCallback("image_show", MouseCallBackFunc, NULL);
 	}
   return 0;
