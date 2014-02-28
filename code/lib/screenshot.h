@@ -9,22 +9,23 @@
 using namespace std;
 using namespace cv;
 
+Display *display = XOpenDisplay(NULL);
+Window root = DefaultRootWindow(display);
+
 Mat ScreenShot();
 Mat XImage2MatImageAdapter(XImage *ximage);
 
 Mat ScreenShot()
 {
-  Display *display = XOpenDisplay(NULL);
-   Window root = DefaultRootWindow(display);
+  XWindowAttributes gwa;
 
-   XWindowAttributes gwa;
-
-   XGetWindowAttributes(display, root, &gwa);
-   int width = gwa.width;
-   int height = gwa.height;
+  XGetWindowAttributes(display, root, &gwa);
+  int width = gwa.width;
+  int height = gwa.height;
+  XDestroyWindow(display,root);
 
 
-   return XImage2MatImageAdapter(XGetImage(display,root, 0,0 , width,height,AllPlanes, ZPixmap));  
+  return XImage2MatImageAdapter(XGetImage(display,root, 0,0 , width,height,AllPlanes, ZPixmap));  
 }
 
 Mat XImage2MatImageAdapter(XImage *ximage)
