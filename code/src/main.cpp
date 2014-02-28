@@ -21,15 +21,11 @@ int main()
 	char esc;
   	while(esc!='s')
   	{		
-  		//matImage.setTo(Scalar(0,0,0));
   		matImage =ScreenShot();
-  		Size s;
-    	s.width = matImage.colls/2;
-    	s.height  = matImage.rows/2;
-    	resize(frame, frame, s);
+    	resize(matImage, matImage, Size(matImage.cols/2,matImage.rows/2));
 	    imshow("image_show",matImage);
-	    namedWindow("image_show", CV_WINDOW_NORMAL); 
-	    esc=waitKey(10);
+	    namedWindow("image_show",CV_WINDOW_AUTOSIZE); 
+	    esc=waitKey(1);
 	    //setMouseCallback("image_show", MouseCallBackFunc, NULL);
 	}
   return 0;
