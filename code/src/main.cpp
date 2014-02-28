@@ -23,6 +23,10 @@ int main()
   	{		
   		//matImage.setTo(Scalar(0,0,0));
   		matImage =ScreenShot();
+  		Size s;
+    	s.width = matImage.colls/2;
+    	s.height  = matImage.rows/2;
+    	resize(frame, frame, s);
 	    imshow("image_show",matImage);
 	    namedWindow("image_show", CV_WINDOW_NORMAL); 
 	    esc=waitKey(10);
