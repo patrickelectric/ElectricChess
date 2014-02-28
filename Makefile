@@ -17,7 +17,9 @@ C_LIB += $(LIBDIR)/
 CC      = 	gcc
 
 # compiler flags
-CFLAGS  = 	-g -Wall -lX11 -lstdc++ `pkg-config --libs --cflags opencv`
+CFLAGS  =`pkg-config --libs --cflags opencv` -Wall -lX11 -lstdc++ 
+#for ddd
+#CFLAGS  +=-mpreferred-stack-boundary=4 -mstackrealign -ggdb -g
 
 all:
 	$(CC) $^ $(C_SRC) -o $(OUTDIR)/main -I$(C_LIB) $(CFLAGS)

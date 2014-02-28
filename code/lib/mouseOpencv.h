@@ -8,12 +8,26 @@ struct data_mouse {
     int y[2];   
 };
 
-data_mouse mouseInfo;
-bool state=false;
-bool mouse_on=false;
-void MouseCallBackFunc(int event, int x, int y, int flags, void* userdata);
+class MouseOpencv 
+{
+  private:
+    bool state;
+    bool mouse_on;
 
-void MouseCallBackFunc(int event, int x, int y, int flags, void* userdata)
+  public:
+    data_mouse mouseInfo;
+
+    void MouseCallBackFunc(int event, int x, int y, int flags, void* userdata);
+    void MouseOpencvInit();
+};
+
+void MouseOpencv::MouseOpencvInit()
+{
+    state=false;
+    mouse_on=false;
+}
+
+void MouseOpencv::MouseCallBackFunc(int event, int x, int y, int flags, void* userdata)
 {
     mouse_on=true;
     mouseInfo.event=event;
