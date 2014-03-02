@@ -2,6 +2,9 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
+using namespace std;
+using namespace cv;
+
 struct data_mouse {
     int event;
     int x[2];
@@ -11,23 +14,28 @@ struct data_mouse {
 class MouseOpencv 
 {
   private:
+    Point p;
     bool state;
     bool mouse_on;
+    char* window_name;
+
+    void MouseCallBack(int event, int x, int y, int flags, void* userdata);
 
   public:
     data_mouse mouseInfo;
 
-    void MouseCallBackFunc(int event, int x, int y, int flags, void* userdata);
-    void MouseOpencvInit();
+    void Init(char* window_name_sample);
+    void Capture();
 };
 
-void MouseOpencv::MouseOpencvInit()
+void MouseOpencv::Init(char* window_name_sample)
 {
+    window_name=window_name_sample;
     state=false;
     mouse_on=false;
 }
 
-void MouseOpencv::MouseCallBackFunc(int event, int x, int y, int flags, void* userdata)
+void MouseOpencv::MouseCallBack(int event, int x, int y, int flags, void* userdata)
 {
     mouse_on=true;
     mouseInfo.event=event;
@@ -53,4 +61,9 @@ void MouseOpencv::MouseCallBackFunc(int event, int x, int y, int flags, void* us
             state=false;
         break;
     }
+}
+
+void MouseOpencv::Capture()
+{
+    //setMouseCallback(window_name, MouseCallBack, NULL);
 }

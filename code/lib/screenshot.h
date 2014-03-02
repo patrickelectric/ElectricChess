@@ -22,11 +22,11 @@ class ScreenImage
     Mat XImage2MatImageAdapter();
   public:
     Mat ScreenShot();
-    void ScreenInit();
+    void Init();
     void Flush();
 };
 
-void ScreenImage::ScreenInit()
+void ScreenImage::Init()
 {
   display = XOpenDisplay(NULL);
   window = DefaultRootWindow(display);

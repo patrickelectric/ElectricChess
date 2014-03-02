@@ -1,6 +1,9 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
+using namespace std;
+using namespace cv;
+
 class Image 
 {
   //private:
@@ -31,5 +34,5 @@ char Image::Show()
 
 void Image::ScaleImg(float scale)
 {
-    resize(img, img, Size(img.cols/scale,img.rows/scale));
+    resize(img, img, Size(img.cols*scale,img.rows*scale));
 }
