@@ -74,8 +74,8 @@ int* ScreenArea::TakeArea()
 	}
 
 	XCloseDisplay(disp);
-	coord[0]=ry;
-	coord[1]=rx;
+	coord[0]=rx;
+	coord[1]=ry;
 	coord[2]=rw;
 	coord[3]=rh;
 	//printf("%dx%d+%d+%d\n",rw,rh,rx,ry);

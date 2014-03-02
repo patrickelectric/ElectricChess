@@ -28,7 +28,7 @@ int main(int argc, char** argv)
 
 
 	int* cood=ScreenArea.TakeArea();
-	printf("%d,%d,%d,%d\n",cood[0],cood[1],cood[2],cood[3] );
+
 	Rect Corte(cood[0],cood[1],cood[2],cood[3]);
   	while(esc!='s')
   	{		
@@ -36,15 +36,15 @@ int main(int argc, char** argv)
   		//pega imagem da tela
   		screen_image.SetData(Screen.ScreenShot(),"Tela",WINDOW_NORMAL);
 
-  		screen_image.ScaleImg(1.0f);
+  		//screen_image.ScaleImg(1.0f);
   		Mat result=screen_image.img(Corte);
-    	//O buffer do screen_image precisa ser limpo após tratamento com a imagem
-    	screen_image.ScaleImg(0.9f);
     	imshow("Result",result);
     	namedWindow("Result",WINDOW_NORMAL); 
     	esc=screen_image.Show();
-    	Screen.Flush();
-    	
+
+
+    	//O buffer do screen_image precisa ser limpo após tratamento com a imagem
+    	Screen.Flush();    	
  	}
   return 0;
 }
