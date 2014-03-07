@@ -17,7 +17,7 @@ C_LIB += $(LIBDIR)/
 CC      = 	gcc
 
 # compiler flags
-CFLAGS  =`pkg-config --libs --cflags opencv` -Wall -lX11 -lstdc++ -Wno-write-strings
+CFLAGS  =`pkg-config --libs --cflags opencv` -Wall -lX11 -lstdc++ -Wno-write-strings -Wno-return-local-addr -std=gnu++11 -Wno-uninitialized
 #for ddd
 #CFLAGS  +=-mpreferred-stack-boundary=4 -mstackrealign -ggdb -g
 
