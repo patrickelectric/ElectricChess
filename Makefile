@@ -14,7 +14,7 @@ C_SRC += $(SRCDIR)/main.cpp
 C_LIB += $(LIBDIR)/
 	
 # Define programs and commands.
-CC      = 	gcc
+CC      = 	g++
 
 # compiler flags
 CFLAGS  =`pkg-config --libs --cflags opencv` -Wall -lX11 -lstdc++ -Wno-write-strings -Wno-return-local-addr -std=gnu++11 -Wno-uninitialized

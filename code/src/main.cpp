@@ -39,12 +39,11 @@ int main(int argc, char** argv)
   	{		
   		
   		//pega imagem da tela
-  		screen_image.SetData(Screen.ScreenShot(),"Tela",WINDOW_NORMAL);
+  		screen_image.SetData(Screen.ScreenShot(),"Tela",WINDOW_AUTOSIZE);
 
   		//screen_image.ScaleImg(1.0f);
-  		screen_result.SetData(screen_image.img(Corte),"Result",WINDOW_NORMAL);
+  		screen_result.SetData(screen_image.img(Corte),"Result",WINDOW_AUTOSIZE);
     	esc=screen_result.Show();
-    	
       //extrai os quadrantes
       for (int i = 0; i < 8; ++i) //1-8
         for (int u = 0; u < 8; ++u) //a-h
@@ -52,16 +51,14 @@ int main(int argc, char** argv)
           Rect cut(screen_result.img.cols*u/8,screen_result.img.rows*i/8,screen_result.img.cols/8,screen_result.img.rows/8); //quadrados com 1/64 da area
           chess_piece[i][u].img = screen_result.img(cut); 
           char* name = electricChess.Quadrant2Char(u,i);
-          chess_piece[i][u].SetData(chess_piece[i][u].img,name,WINDOW_NORMAL); //salva os dados
-          printf("%s\n",electricChess.Quadrant2Char(u,i) );
-          chess_piece[i][u].Show();
+          chess_piece[i][u].SetData(chess_piece[i][u].img,name,WINDOW_AUTOSIZE); //salva os dados
+          #if 0
+          if(i<2 || i>5)
+            chess_piece[i][u].Show();
+          #endif
         }
-        /*
-        for (int i = 0; i < 8; ++i) //1-8
-          for (int u = 0; u < 8; ++u) //a-h
-            esc=chess_piece[i][u].Show();
-        */
 
+      printf("x-y %d-%d  ; event %d ; flag %d\n",screen_result.mouse.x,screen_result.mouse.y,screen_result.mouse.event,screen_result.mouse.flag);
     	Screen.Flush();    	
  	}
   return 0;
