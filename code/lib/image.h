@@ -7,6 +7,7 @@ using namespace cv;
 class Image 
 {
   private:
+    /// this function its only possivel with the codes of https://github.com/mlkimg
     static void mouseCallback(int event, int x, int y, int flags, void *param);
     void doMouseCallback(int event, int x, int y, int flags);
 
@@ -42,13 +43,17 @@ char Image::Show()
 {
     namedWindow(window_name,window_flag); 
     imshow(window_name,img);
-    setMouseCallback(window_name, mouseCallback, NULL);
+    setMouseCallback(window_name, mouseCallback, this);
     return waitKey(1);
 }
 
 void Image::mouseCallback(int event, int x, int y, int flags, void *param)
 {
-    ins->doMouseCallback( event, x, y, flags);
+    Image& self = *((Image*)param); 
+    self.mouse.x=x;
+    self.mouse.y=y;
+    self.mouse.event=event;
+    self.mouse.flag=flags;
 }
 
 void Image::doMouseCallback(int event, int x, int y, int flags)

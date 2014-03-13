@@ -19,7 +19,7 @@ CC      = 	g++
 # compiler flags
 CFLAGS  =`pkg-config --libs --cflags opencv` -Wall -lX11 -lstdc++ -Wno-write-strings -Wno-return-local-addr -std=gnu++11 -Wno-uninitialized
 #for ddd
-#CFLAGS  +=-mpreferred-stack-boundary=4 -mstackrealign -ggdb -g
+#CFLAGS  +=-mpreferred-stack-boundary=4 -mstackrealign -ggdb -g -O0
 
 all:
 	$(CC) $^ $(C_SRC) -o $(OUTDIR)/main -I$(C_LIB) $(CFLAGS)
